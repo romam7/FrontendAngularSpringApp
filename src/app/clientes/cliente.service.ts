@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cliente } from './cliente.js';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
@@ -17,16 +17,15 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get(this.url).pipe(
-      map(response => {
-        const clientes = response as Cliente[];
-
-        return clientes.map(cliente => {
+  getClientes(page: number): Observable<any> {
+    return this.http.get(this.url + '/page/' + page).pipe(
+      map( (response: any) => {
+        (response.content as Cliente[]).map(cliente => {
           cliente.nombre = cliente.nombre.toUpperCase();
           cliente.fechaCreacion = formatDate(cliente.fechaCreacion, 'EEEE dd-MM-yyyy', 'es');
           return cliente;
         });
+        return response;
       })
     );
   }

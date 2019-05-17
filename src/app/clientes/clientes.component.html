@@ -1,5 +1,7 @@
 <div class="card border-primary mb-3">
-  <div class="card-header">Clientes</div>
+  <div class="card-header">
+    <b>CLIENTES</b>
+  </div>
   <div class="card-body text-primary">
     <h5 class="card-title">Listado de clientes</h5>
 
@@ -11,7 +13,7 @@
       No hay registros en la base de datos.
     </div>
 
-    <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
+    <table class="table table-hover table-bordered table-striped" *ngIf="clientes?.length>0">
       <thead>
         <tr>
           <th>Id</th>
@@ -30,14 +32,15 @@
           <td>{{ cliente.apellido }}</td>
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.fechaCreacion }}</td>
-          <td>
+          <td class="text-center">
             <button class="btn btn-success" [routerLink]="['/clientes/form', cliente.id]">Editar</button>
           </td>
-          <td>
+          <td class="text-center">
             <button class="btn btn-danger" (click)="delete(cliente)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <app-paginator-nav *ngIf="paginador" [paginador]="paginador"></app-paginator-nav>
   </div>
 </div>

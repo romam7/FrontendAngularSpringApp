@@ -23,8 +23,9 @@ export class FormComponent implements OnInit {
   }
 
   cargarCliente(): void {
+    const idTag = 'id';
     this.activatedRoute.params.subscribe(params => {
-      const id = params['id'];
+      const id = params[idTag];
       if (id) {
         this.clientService.getCliente(id).subscribe(
           cliente => this.cliente = cliente
@@ -43,6 +44,10 @@ export class FormComponent implements OnInit {
         this.errores = err.error.errors as string[];
       }
     );
+  }
+
+  regresar() {
+    this.router.navigate(['clientes']);
   }
 
   update(): void {
