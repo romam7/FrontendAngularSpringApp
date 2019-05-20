@@ -3,6 +3,7 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { ModalService } from './detalle/modal.service';
 
 @Component({
   selector: 'app-clientes',
@@ -12,8 +13,9 @@ export class ClientesComponent implements OnInit {
 
   clientes: Cliente[] = [];
   paginador: any;
+  clienteSeccionado: Cliente;
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     // ParamMap es un observador que detecta cambios de pagina
@@ -31,6 +33,18 @@ export class ClientesComponent implements OnInit {
         );
       }
     );
+
+    this.modalService.notificarUpload.subscribe(
+      cliente => {
+        this.clientes = this.clientes.map(clienteOriginal => {
+          if (cliente.id === clienteOriginal.id) {
+            clienteOriginal.foto = cliente.foto;
+          }
+
+          return clienteOriginal;
+        });
+      }
+    )
   }
 
   delete(cliente: Cliente): void {
@@ -64,5 +78,10 @@ export class ClientesComponent implements OnInit {
         );
       }
     });
+  }
+
+  abrirModal(cliente: Cliente) {
+    this.clienteSeccionado = cliente;
+    this.modalService.abrirModal();
   }
 }
