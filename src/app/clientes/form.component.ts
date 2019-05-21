@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
       regiones => {
         this.regiones = regiones;
       }
-    )
+    );
   }
 
   create(): void {

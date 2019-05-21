@@ -44,7 +44,7 @@ export class ClientesComponent implements OnInit {
           return clienteOriginal;
         });
       }
-    )
+    );
   }
 
   delete(cliente: Cliente): void {
