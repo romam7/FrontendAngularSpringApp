@@ -4,6 +4,7 @@ import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { ModalService } from './detalle/modal.service';
+import { AuthService } from '../usuarios/auth.service';
 
 @Component({
   selector: 'app-clientes',
@@ -15,7 +16,8 @@ export class ClientesComponent implements OnInit {
   paginador: any;
   clienteSeccionado: Cliente;
 
-  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute, 
+              private modalService: ModalService, private authService: AuthService) { }
 
   ngOnInit() {
     // ParamMap es un observador que detecta cambios de pagina

@@ -17,9 +17,20 @@
         <a class="nav-link" routerLink="/clientes">Clientes</a>
       </li>
     </ul>
+
     <ul class="navbar-nav navbar-right">
       <li>
-        <a routerLink="/login" class="btn btn-outline-success">Login</a>
+        <a *ngIf="!authService.isAuthenticated()" [routerLink]="['/login']" class="btn btn-outline-success">Login</a>
+      </li>
+
+      <li class="dropdown" *ngIf="authService.isAuthenticated()" >
+        <a class="btn btn-outline-success dropdown-toggle text-white" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{ authService.usuario.username }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button (click)="logout()" class="dropdown-item" type="submit">Cerrar sesion</button>
+        </div>
       </li>
     </ul>
   </div>
